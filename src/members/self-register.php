@@ -49,6 +49,11 @@ use ChurchCRM\dto\SystemURLs;
 
 
 <script nonce="<?= SystemURLs::getCSPNonce() ?>">
+    function escapeHTML(unsafeText) {
+        let div = document.createElement('div');
+        div.textContent = unsafeText;
+        return div.innerHTML;
+    }
     $(document).ready(function () {
 
         var dataTableConfig = {
@@ -62,7 +67,8 @@ use ChurchCRM\dto\SystemURLs;
                     data: 'Id',
                     searchable: false,
                     render: function (data, type, full, meta) {
-                        return '<a href=' + window.CRM.root + '/v2/family/' + data + '>' + data + '</a>';
+                        data = escapeHTML(data);
+                        return '<a href="' + escapeHTML(window.CRM.root + '/v2/family/' + data) + '">' + data + '</a>';
                     }
                 },
                 {
@@ -98,7 +104,8 @@ use ChurchCRM\dto\SystemURLs;
                     data: 'Id',
                     searchable: false,
                     render: function (data, type, full, meta) {
-                        return '<a href=' + window.CRM.root + '/PersonView.php?PersonID=' + data + '>' + data + '</a>';
+                        data = escapeHTML(data);
+                        return '<a href="' + escapeHTML(window.CRM.root + '/PersonView.php?PersonID=' + data) + '">' + data + '</a>';
                     }
                 },
                 {
